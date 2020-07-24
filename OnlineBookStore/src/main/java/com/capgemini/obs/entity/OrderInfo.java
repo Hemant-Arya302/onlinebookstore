@@ -1,203 +1,139 @@
 package com.capgemini.obs.entity;
 
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name="OrderInfo")
 public class OrderInfo {
+	
 @Id
-
 @Column(name="order_Id")
 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
 @SequenceGenerator(sequenceName = "order_sequence", allocationSize = 10, name = "order_seq")
-private Long Order_Id;
-
-@NotEmpty(message = "RecipientName is mandatory")
-@Column(name="RecipientName")
-@Length(min=8, max=30)
-private String RecipientName;
-
-@NotEmpty(message = "RecipientPhone is mandatory")
-@Column(name="RecipientPhone")
-@Length(min=10, max=15)
-private Long RecipientPhone;
-
-@NotEmpty(message = "StreetAddress is mandatory")
-@Column(name="StreetAddress")
-@Length(min=10, max=128)
-private String StreetAddress;
-
-@NotEmpty(message = "city name is mandatory")
-@Column(name="city")
-@Length(min=3, max=32)
-private String city;
-
-@NotEmpty(message = "ZipCode is mandatory")
-@Column(name="ZipCode")
-@Length(min=3, max=24)
-private String ZipCode;
-
-@NotEmpty(message = "Country name is mandatory")
-@Column(name="Country")
-@Length(min=3, max=64)
-private String Country;
-
+private Integer orderId;
 
 @Column(name="Quantity")
-private Integer Quantity;
+private Integer quantity;
 
 
 @Column(name="SubToatl")
-private Float SubToatl;
+private Float subToatl;
 
 
 @Column(name="Total")
-private Float Total;
+private Float total;
 
 
 @Column(name="OrderStatus")
-private String OrderStatus;
+private String orderStatus;
 
-@NotEmpty(message = "PaymentMethos is mandatory")
-@Column(name="PaymentMethos")
-@Length(min=8, max=16)
-private String PaymentMethos;
+@NotEmpty(message = "PaymentMethod is mandatory")
+@Column(name="PaymentMethod")
+@Length(min=2, max=16)
+private String paymentMethod;
 
-public Long getOrderId() {
-	return Order_Id;
+@OneToMany(fetch=FetchType.EAGER,targetEntity = BookInfo.class, cascade = CascadeType.ALL)
+@Fetch(value = FetchMode.SUBSELECT)
+@JoinColumn(name = "order_Id", referencedColumnName = "order_Id")
+private List<BookInfo> BookInfo;
+
+
+
+public Integer getOrder_Id() {
+	return orderId;
 }
 
-public void setOrderId(Long order_Id) {
-	Order_Id = order_Id;
+public void setOrder_Id(Integer order_Id) {
+	this.orderId = order_Id;
 }
 
-public String getRecipientName() {
-	return RecipientName;
-}
-
-public void setRecipientName(String recipientName) {
-	RecipientName = recipientName;
-}
-
-public Long getRecipientPhone() {
-	return RecipientPhone;
-}
-
-public void setRecipientPhone(Long recipientPhone) {
-	RecipientPhone = recipientPhone;
-}
-
-public String getStreetAddress() {
-	return StreetAddress;
-}
-
-public void setStreetAddress(String streetAddress) {
-	StreetAddress = streetAddress;
-}
-
-public String getCity() {
-	return city;
-}
-
-public void setCity(String city) {
-	this.city = city;
-}
-
-public String getZipCode() {
-	return ZipCode;
-}
-
-public void setZipCode(String zipCode) {
-	ZipCode = zipCode;
-}
-
-public String getCountry() {
-	return Country;
-}
-
-public void setCountry(String country) {
-	Country = country;
-}
 
 public Integer getQuantity() {
-	return Quantity;
+	return quantity;
 }
 
 public void setQuantity(Integer quantity) {
-	Quantity = quantity;
+	this.quantity = quantity;
 }
 
 public Float getSubToatl() {
-	return SubToatl;
+	return subToatl;
 }
 
 public void setSubToatl(Float subToatl) {
-	SubToatl = subToatl;
+	this.subToatl = subToatl;
 }
 
 public Float getTotal() {
-	return Total;
+	return total;
 }
 
 public void setTotal(Float total) {
-	Total = total;
+	this.total = total;
 }
 
 public String getOrderStatus() {
-	return OrderStatus;
+	return orderStatus;
 }
 
 public void setOrderStatus(String orderStatus) {
-	OrderStatus = orderStatus;
+	this.orderStatus = orderStatus;
 }
 
-public String getPaymentMethos() {
-	return PaymentMethos;
+public String getPaymentMethod() {
+	return paymentMethod;
 }
 
-public void setPaymentMethos(String paymentMethos) {
-	PaymentMethos = paymentMethos;
+public void setPaymentMethod(String paymentMethod) {
+	this.paymentMethod = paymentMethod;
 }
+
+public List<BookInfo> getBookInfo() {
+	return BookInfo;
+}
+
+public void setBookInfo(List<BookInfo> bookInfo) {
+	BookInfo = bookInfo;
+}
+
 
 @Override
 public String toString() {
-	return "OrderInfo [Order_Id=" + Order_Id + ", RecipientName=" + RecipientName + ", RecipientPhone=" + RecipientPhone
-			+ ", StreetAddress=" + StreetAddress + ", city=" + city + ", ZipCode=" + ZipCode + ", Country=" + Country
-			+ ", Quantity=" + Quantity + ", SubToatl=" + SubToatl + ", Total=" + Total + ", OrderStatus=" + OrderStatus
-			+ ", PaymentMethos=" + PaymentMethos + "]";
+	return "OrderInfo [order_Id=" + orderId + ", quantity=" + quantity + ", subToatl=" + subToatl + ", total=" + total
+			+ ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", BookInfo=" + BookInfo + "]";
 }
 
-public OrderInfo(Long orderId,
-		@NotEmpty(message = "RecipientName is mandatory") @Length(min = 8, max = 30) String recipientName,
-		@NotEmpty(message = "RecipientPhone is mandatory") @Length(min = 10, max = 15) Long recipientPhone,
-		@NotEmpty(message = "StreetAddress is mandatory") @Length(min = 10, max = 128) String streetAddress,
-		@NotEmpty(message = "city name is mandatory") @Length(min = 3, max = 32) String city,
-		@NotEmpty(message = "ZipCode is mandatory") @Length(min = 3, max = 24) String zipCode,
-		@NotEmpty(message = "Country name is mandatory") @Length(min = 3, max = 64) String country, Integer quantity,
-		Float subToatl, Float total, String orderStatus,
-		@NotEmpty(message = "PaymentMethos is mandatory") @Length(min = 8, max = 16) String paymentMethos) {
+
+
+public OrderInfo(Integer order_Id, Integer quantity, Float subToatl, Float total, String orderStatus,
+		@NotEmpty(message = "PaymentMethod is mandatory") @Length(min = 2, max = 16) String paymentMethod,
+		List<com.capgemini.obs.entity.BookInfo> bookInfo) {
 	super();
-	Order_Id = orderId;
-	RecipientName = recipientName;
-	RecipientPhone = recipientPhone;
-	StreetAddress = streetAddress;
-	this.city = city;
-	ZipCode = zipCode;
-	Country = country;
-	Quantity = quantity;
-	SubToatl = subToatl;
-	Total = total;
-	OrderStatus = orderStatus;
-	PaymentMethos = paymentMethos;
+	this.orderId = order_Id;
+	this.quantity = quantity;
+	this.subToatl = subToatl;
+	this.total = total;
+	this.orderStatus = orderStatus;
+	this.paymentMethod = paymentMethod;
+	BookInfo = bookInfo;
 }
 
 public OrderInfo() {

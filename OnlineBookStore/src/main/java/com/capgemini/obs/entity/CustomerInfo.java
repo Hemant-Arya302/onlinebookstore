@@ -29,28 +29,26 @@ public class CustomerInfo {
 	@Column(name="customer_Id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
     @SequenceGenerator(sequenceName = "customer_sequence", allocationSize = 100, name = "customer_seq")
-	private Long customerId;
+	private Integer customerId;
 	
 	
 	@NotEmpty(message = "name is mandatory")
 	@Column(name="FullName")
-	@Length(min=8, max=30)
-	private String FullName;
+	@Length(min=2, max=30)
+	private String fullName;
 	
 	@NotEmpty(message = "Email is mandatory")
 	@Column(name="Email")
-	@Length(min=10, max=64)
-	private String Email ;
+	@Length(min=2, max=64)
+	private String email ;
 	
 	@NotEmpty(message = "password is mandatory")
 	@Column(name="password")
-	@Length(min=8, max=30)
+	@Length(min=2, max=30)
 	private String password;
 	
-	@NotEmpty(message = "PhoneNumber is mandatory")
 	@Column(name="PhoneNumber")
-	@Length(min=10, max=15)
-	private Long PhoneNumber;
+	private Long phoneNumber;
 	
 	@NotEmpty(message = "city name is mandatory")
 	@Column(name="city")
@@ -59,151 +57,200 @@ public class CustomerInfo {
 	
 	@NotEmpty(message = "Address is mandatory")
 	@Column(name="Address")
-	@Length(min=10, max=128)
-	private String Address;
+	@Length(min=2, max=128)
+	private String address;
 	
 	@NotEmpty(message = "ZipCode is mandatory")
 	@Column(name="ZipCode")
 	@Length(min=3, max=24)
-	private String ZipCode;
+	private String zipCode;
 	
 	@NotEmpty(message = "Country name is mandatory")
 	@Column(name="Country")
 	@Length(min=3, max=64)
-	private String Country;
+	private String country;
 
-	@OneToMany(fetch=FetchType.EAGER,targetEntity = OrderInfo.class, cascade = CascadeType.ALL)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(fetch=FetchType.EAGER, targetEntity = OrderInfo.class, cascade = CascadeType.ALL)
+	//@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name = "customer_Id", referencedColumnName = "customer_Id")
 	private List<OrderInfo> OrderInfo;
 	
-	@OneToMany(fetch=FetchType.EAGER,targetEntity = BookInfo.class, cascade = CascadeType.ALL)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinColumn(name = "customer_Id", referencedColumnName = "customer_Id")
-	private List<BookInfo> BookInfo;
+//	@OneToMany(fetch=FetchType.EAGER,targetEntity = BookInfo.class, cascade = CascadeType.ALL)
+//	@Fetch(value = FetchMode.SUBSELECT)
+//	@JoinColumn(name = "customer_Id", referencedColumnName = "customer_Id")
+//	private List<BookInfo> BookInfo;
 
-	public Long getCustomerId() {
+
+
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Long customerId) {
+
+
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 
+	
 	public String getFullName() {
-		return FullName;
+		return fullName;
 	}
+
+
 
 	public void setFullName(String fullName) {
-		FullName = fullName;
+		this.fullName = fullName;
 	}
+
+
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
+
+
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
+
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+
+
 	public Long getPhoneNumber() {
-		return PhoneNumber;
+		return phoneNumber;
 	}
 
+
+
 	public void setPhoneNumber(Long phoneNumber) {
-		PhoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
+
+
 
 	public String getCity() {
 		return city;
 	}
 
+
+
 	public void setCity(String city) {
 		this.city = city;
 	}
 
+
+
 	public String getAddress() {
-		return Address;
+		return address;
 	}
+
+
 
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
+
+
 
 	public String getZipCode() {
-		return ZipCode;
+		return zipCode;
 	}
+
+
 
 	public void setZipCode(String zipCode) {
-		ZipCode = zipCode;
+		this.zipCode = zipCode;
 	}
+
+
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
+
+
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
+
+
 
 	public List<OrderInfo> getOrderInfo() {
 		return OrderInfo;
 	}
 
+
+
 	public void setOrderInfo(List<OrderInfo> orderInfo) {
 		OrderInfo = orderInfo;
 	}
 
-	public List<BookInfo> getBookInfo() {
-		return BookInfo;
-	}
 
-	public void setBookInfo(List<BookInfo> bookInfo) {
-		BookInfo = bookInfo;
-	}
 
-	@Override
-	public String toString() {
-		return "CustomerInfo [customerId=" + customerId + ", FullName=" + FullName + ", Email=" + Email + ", password="
-				+ password + ", PhoneNumber=" + PhoneNumber + ", city=" + city + ", Address=" + Address + ", ZipCode="
-				+ ZipCode + ", Country=" + Country + ", OrderInfo=" + OrderInfo + ", BookInfo=" + BookInfo + "]";
-	}
+//	public List<BookInfo> getBookInfo() {
+//		return BookInfo;
+//	}
+//
+//
+//
+//	public void setBookInfo(List<BookInfo> bookInfo) {
+//		BookInfo = bookInfo;
+//	}
 
-	public CustomerInfo(Long customerId,
-			@NotEmpty(message = "name is mandatory") @Length(min = 8, max = 30) String fullName,
-			@NotEmpty(message = "Email is mandatory") @Length(min = 10, max = 64) String email,
-			@NotEmpty(message = "password is mandatory") @Length(min = 8, max = 30) String password,
-			@NotEmpty(message = "PhoneNumber is mandatory") @Length(min = 10, max = 15) Long phoneNumber,
-			@NotEmpty(message = "city name is mandatory") @Length(min = 3, max = 32) String city,
-			@NotEmpty(message = "Address is mandatory") @Length(min = 10, max = 128) String address,
-			@NotEmpty(message = "ZipCode is mandatory") @Length(min = 3, max = 24) String zipCode,
-			@NotEmpty(message = "Country name is mandatory") @Length(min = 3, max = 64) String country,
-			List<com.capgemini.obs.entity.OrderInfo> orderInfo, List<com.capgemini.obs.entity.BookInfo> bookInfo) {
-		super();
-		this.customerId = customerId;
-		FullName = fullName;
-		Email = email;
-		this.password = password;
-		PhoneNumber = phoneNumber;
-		this.city = city;
-		Address = address;
-		ZipCode = zipCode;
-		Country = country;
-		OrderInfo = orderInfo;
-		BookInfo = bookInfo;
-	}
+
+	
+
 
 	public CustomerInfo() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public CustomerInfo(Integer customerId,
+		@NotEmpty(message = "name is mandatory") @Length(min = 2, max = 30) String fullName,
+		@NotEmpty(message = "Email is mandatory") @Length(min = 2, max = 64) String email,
+		@NotEmpty(message = "password is mandatory") @Length(min = 2, max = 30) String password, Long phoneNumber,
+		@NotEmpty(message = "city name is mandatory") @Length(min = 3, max = 32) String city,
+		@NotEmpty(message = "Address is mandatory") @Length(min = 2, max = 128) String address,
+		@NotEmpty(message = "ZipCode is mandatory") @Length(min = 3, max = 24) String zipCode,
+		@NotEmpty(message = "Country name is mandatory") @Length(min = 3, max = 64) String country,
+		List<com.capgemini.obs.entity.OrderInfo> orderInfo) {
+	super();
+	this.customerId = customerId;
+	this.fullName = fullName;
+	this.email = email;
+	this.password = password;
+	this.phoneNumber = phoneNumber;
+	this.city = city;
+	this.address = address;
+	this.zipCode = zipCode;
+	this.country = country;
+	OrderInfo = orderInfo;
+}
+
+
+
+	@Override
+	public String toString() {
+		return "CustomerInfo [customerId=" + customerId + ", fullName=" + fullName + ", email=" + email + ", password="
+				+ password + ", phoneNumber=" + phoneNumber + ", city=" + city + ", address=" + address + ", zipCode="
+				+ zipCode + ", country=" + country + ", OrderInfo=" + OrderInfo + "]";
 	}
 
 	
