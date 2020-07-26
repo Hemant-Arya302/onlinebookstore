@@ -25,7 +25,7 @@ import com.capgemini.obs.exception.OrderException;
 import com.capgemini.obs.service.BookService;
 import com.capgemini.obs.service.OrderServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class OrderController {
 	
@@ -41,6 +41,7 @@ public class OrderController {
 	 * @returns String       - Order deleted.
 	 * @throws Order Exception - Order already exists.
 	 **************************************************/
+	@CrossOrigin
 	@DeleteMapping("/deleteOrder/{orderId}")
 	public String deleteOrder(@PathVariable Integer orderId) throws OrderException {
 		try {
@@ -51,6 +52,7 @@ public class OrderController {
 
 	}
 	
+	@CrossOrigin
 	@PostMapping("/updateCustomer")
 	public ResponseEntity<Boolean> updateCustomer(@Valid @RequestBody CustomerInfo customer) {
 		customer.setCustomerId(customer.getCustomerId());
@@ -59,6 +61,8 @@ public class OrderController {
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
 		return responseEntity;
 	}
+	
+	@CrossOrigin
 	@GetMapping("/get/{customerId}")
 	public String displayCustomerInfo(@PathVariable Integer customerId) throws InvalidDetailsException {	
 		Boolean info=orderServiceImpl.getCustomerInfo(customerId);
@@ -72,6 +76,7 @@ public class OrderController {
 		}
 	}
 	
+	@CrossOrigin
 	@GetMapping("/orders")
 	public ArrayList<OrderInfo> getAllOrder() throws OrderException {
 		try{
@@ -81,6 +86,7 @@ public class OrderController {
 		}
 	}
 	
+	@CrossOrigin
 	@GetMapping("/order/{orderId}")
 	public OrderInfo getOrder(@PathVariable Integer orderId) throws OrderException {
 		try{
@@ -90,6 +96,7 @@ public class OrderController {
 		}
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/removeBook/{bookId}")
 	public String removeTest(@PathVariable Integer bookId) throws OrderException {
 		try {
@@ -99,6 +106,7 @@ public class OrderController {
 		}
 }
 	
+	@CrossOrigin
 	@PutMapping("/updateQuantity") 
 	  public ResponseEntity<OrderInfo> updateOrder(@Valid @RequestBody OrderInfo orderInfo) throws OrderException{
 		try { 
@@ -109,6 +117,7 @@ public class OrderController {
 		}
 }
 
+	@CrossOrigin
 	@PostMapping("/addBook")
 	public ResponseEntity<String> addBook(@Valid @RequestBody BookInfo bookInfo)
 			throws OrderException {
@@ -121,6 +130,7 @@ public class OrderController {
 		}
 	}
 	
+	@CrossOrigin
 	@PostMapping("/addCustomer")
 	public ResponseEntity<String> addCustomer(@Valid @RequestBody CustomerInfo customerInfo)
 			throws OrderException {
@@ -133,6 +143,7 @@ public class OrderController {
 		}
 	}
 	
+	@CrossOrigin
 	@PostMapping("/addOrder")
 	public ResponseEntity<String> addOrder(@Valid @RequestBody OrderInfo orderInfo)
 			throws OrderException {

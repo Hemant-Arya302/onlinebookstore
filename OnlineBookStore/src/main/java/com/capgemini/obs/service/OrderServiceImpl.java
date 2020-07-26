@@ -89,8 +89,10 @@ public class OrderServiceImpl implements OrderService{
 		  }
 		  Integer tempQuantity=orderInfo.getQuantity();
 		  Float tempSubTotal=orderInfo.getSubToatl();
-		  Float temp=tempQuantity*tempSubTotal;
-		  orderInfo.setTotal(temp);
+		  if(tempQuantity!=null&&tempSubTotal!=null) {
+			  Float temp=tempQuantity*tempSubTotal;
+			  orderInfo.setTotal(temp);
+		  }
 		  return orderDao1.save(orderInfo);
 	  }	
 	
